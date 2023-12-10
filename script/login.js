@@ -22,6 +22,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     .then(data => {
         alert(data.message);
         document.cookie = "user_id=" + user_id + ";path=/;";
+        window.location.href = "./index.html"
     })
     .catch(error => {
         console.error('Error:', error);
