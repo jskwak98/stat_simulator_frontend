@@ -5,12 +5,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
         window.location.href = './login.html'; // 로그인 페이지로 Redirection
     }
 });
-
-
-document.getElementById('logoutButton').addEventListener('click', function() {
-    // Delete the user_id cookie
-    document.cookie = 'user_id=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-
-    // Redirect to login page
-    window.location.href = 'login.html';
-});

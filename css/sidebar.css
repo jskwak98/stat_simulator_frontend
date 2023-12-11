@@ -1,48 +1,108 @@
-/* Sidebar */
-#sidebar-wrapper{
-    z-index:100;
+body, html {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#navbar {
+    z-index: 1;
+    width : 100%;
+    height : 58px;
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align: left;
     position: fixed;
-    width:0;
-    height:100%;
-    overflow-y:hidden;
-    background: #d3d3d3;
-    opacity:0.9;
-    transition:all .5s;
-    display:flex;
-    align-items:center;
-  }
-  
-  #menu-toggle{
-      transition:all .3s;
-      font-size:2em;
-  }
-  /* Change the width of the sidebar to display it*/
-  #sidebar-wrapper.menuDisplayed{
-    width:100px;
-  }
-  
-  /* Sidebar styling */
-  .sidebar-nav{
-    padding:0;
-    list-style:none; 
-      transition:all .5s;
-      width:100%;
-      text-align:center;
-  }
-  
-  .sidebar-nav li{
-    line-height:40px;  
-      width:100%;
-      transition:all .3s;
-      padding:10px;
-  }
-  
-  .sidebar-nav li a {
-    display:block;
-    text-decoration:none;
-    color:#ddd;
-  }
-  
-  .sidebar-nav li:hover{
-    background:#846bab;
-  }
+}
+
+#sidebar {
+    height: 100%;
+    width: 0; /* Sidebar is hidden initially */
+    position: fixed;
+    z-index: 2; /* Above the main content */
+    top: 0;
+    left: 0;
+    background-color: #333;
+    overflow-x: hidden; /* Prevents horizontal scroll */
+    transition: 0.5s; /* Smooth transition effect */
+    padding-top: 60px;
+}
+
+#sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+#sidebar a:hover {
+    color: #f1f1f1;
+}
+
+#main-content {
+    transition: margin-left .5s; /* Smooth transition effect */
+    padding: 20px;
+}
+
+.closebtn {
+    position: absolute;
+    color: #818181;
+    cursor: pointer;
+    top: 0;
+    padding-top: 25px;
+    padding-left: 25px;
+}
+
+.closebtn:hover {
+    color: #f1f1f1;
+}
+
+#menu-toggle {
+    color: #818181;
+}
+
+#menu-toggle:hover {
+    color: #f1f1f1;
+}
+
+#page-content-wrapper{
+    padding-top: 70px;
+}
+
+/* 닉네임 등등 */
+
+.sidebar-separator {
+    border-top: 1px solid #818181; /* Horizontal line */
+    margin: 20px 15px; /* Spacing around the line */
+}
+
+.sidebar-bottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center; /* Center the content */
+}
+
+#user-pic {
+    color: #818181;
+    font-size: 30px;
+}
+
+.user-nickname {
+    color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px; /* Adjust as needed */
+}
+
+.logout-button {
+    color: #818181;
+    padding: 10px;
+    display: block; /* Make the logout button a block for full-width click area */
+    text-decoration: none;
+}
+
+.logout-button:hover {
+    color: #f1f1f1;
+}
+
