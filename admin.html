@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body> 
+    <!-- Sidebar Toggle Button -->
+    <div id="navbar">
+        <a href="#" class="btn" id="menu-toggle"><i class="fa-solid fa-bars"></i></a>
+    </div>
+    <div id="sidebar">
+        <i id="closeBtn" class="fa-solid fa-xmark closebtn"></i>
+        <!-- Sidebar content -->
+        <a href="#">Game 1</a>
+        <a href="#">Game 2</a>
+        <a href="#">Game 3-1</a>
+        <a href="#">Game 3-2</a>
+        <a href="#">Insights</a>
+        <a href="/admin.html">Admin</a>
+        <!-- Horizontal Separator -->
+        <div class="sidebar-separator"></div>
+            <!-- User Nickname and Logout -->
+            <div class="sidebar-bottom">
+                <i id="user-pic" class="fa-regular fa-circle-user"></i>
+                <div class="user-nickname"></div>
+                <a href="#" id="logoutButton" class="logout-button"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            </div>
+        </div>
+
+        <div id="page-content-wrapper" class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">ADMIN PANEL</div>
+                    
+                        <!-- List group -->
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                Enable Roll Dice
+                                <div class="material-switch pull-right">
+                                    <input id="RollDice" type="checkbox"/>
+                                    <label for="RollDice" class="label-info"></label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                Enable Monty Hall
+                                <div class="material-switch pull-right">
+                                    <input id="MontyHall" type="checkbox"/>
+                                    <label for="MontyHall" class="label-info"></label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                Enable Choice
+                                <div class="material-switch pull-right">
+                                    <input id="Choice" type="checkbox"/>
+                                    <label for="Choice" class="label-info"></label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                Enable Anti-Choice
+                                <div class="material-switch pull-right">
+                                    <input id="AntiChoice" type="checkbox"/>
+                                    <label for="AntiChoice" class="label-info"></label>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                Disable All
+                                <button id="disableAll" onclick="toggleFeature('disable_all')" class="btn btn-warning pull-right">Disable All</button>
+                            </li>
+                        </ul>
+                    </div>            
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/49c8324aef.js" crossorigin="anonymous"></script>
+    <script src="script/admin.js"></script>
+    <script src="script/sidebar.js"></script>
+</body>
+</html>
