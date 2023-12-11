@@ -9,3 +9,22 @@
     width: 100%;             /* Full width of the container */
     flex-wrap: wrap;         /* Allow items to wrap as needed */
 }
+
+.contents-header {
+    text-align: center; /* Center the text */
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background, adjust as needed */
+    border-bottom: 2px solid #e9ecef; /* Add a bottom border */
+    margin-bottom: 20px; /* Space between header and content */
+}
+
+.contents-header h1 {
+    color: #343a40; /* Dark color for the main title */
+    margin-bottom: 10px; /* Space between title and subtitle */
+    font-weight: bold;
+}
+
+.contents-header h2 {
+    color: #6c757d; /* Lighter color for the subtitle */
+    font-size: 1.2rem; /* Smaller font size for subtitle */
+}
