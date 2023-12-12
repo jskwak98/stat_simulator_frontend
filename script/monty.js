@@ -34,6 +34,8 @@ let goatDoorIndex;
 let isGameActive = false;
 let state;
 
+let initialIconPositions = []; 
+
 function setup() {
     // Create three doors
     const doorsContainer = document.getElementById('doors');
@@ -41,50 +43,55 @@ function setup() {
     for (let i = 0; i < 3; i++) {
         const door = document.createElement('div');
         door.className = 'door';
-
-        const iconWrapper = document.createElement('div');
-        iconWrapper.className = 'icon-wrapper';
-
-        const iconContainer = document.createElement('div');
-        iconContainer.className = 'icon-container';
-
-        const icon = document.createElement('i');
-        iconContainer.appendChild(icon);
-        iconWrapper.appendChild(iconContainer);
-        door.appendChild(iconWrapper);
-
         door.addEventListener('click', () => pickDoor(i));
         doorsContainer.appendChild(door);
         doors.push(door);
     }
-
+    positionIcons();
     resetGame();
+    
 
     document.getElementById('play-again').addEventListener('click', resetGame);
     document.getElementById('yes').addEventListener('click', () => finalizeChoice(true));
     document.getElementById('no').addEventListener('click', () => finalizeChoice(false));
+
+    window.addEventListener('resize', positionIcons);
 }
-
-
 
 function resetGame() {
     isGameActive = true;
     winningDoor = Math.floor(Math.random() * 3); // Randomly select a winning door
     doors.forEach((door, index) => {
-        const icon = door.querySelector('.icon-container i');
-        icon.className = ''; // Clear existing icon class
-        door.classList.remove('picked', 'open', 'final');
+        door.classList.remove('picked', 'prev', 'right', 'wrong', 'open');
+    });
+
+    // Reset icons to default (hippo)
+    document.querySelectorAll('#icons i').forEach(icon => {
+        icon.className = 'fa-solid fa-hippo';
+        icon.style.visibility = 'hidden';
     });
 
     document.getElementById('instruction').innerHTML = 'Pick a Door!';
     document.getElementById('choices').classList.add('hidden');
     document.getElementById('play-again').classList.add('hidden');
+    state = "PICK";
 
-    state="PICK"
+    resetIconPositions();
+}
+
+function resetIconPositions() {
+    const icons = document.querySelectorAll('#icons i');
+    icons.forEach((icon, index) => {
+        const position = initialIconPositions[index];
+        if (position) {
+            icon.style.left = position.left + 'px';
+            icon.style.top = position.top + 'px';
+        }
+    });
 }
 
 function pickDoor(selectedIndex) {
-    if (!isGameActive || state !== 'PICK') return; // Prevent picking a door if the game is not active or not in the 'PICK' state
+    if (!isGameActive || state !== 'PICK') return;
     pickedDoor = selectedIndex;
 
     // Highlight the picked door
@@ -96,23 +103,22 @@ function pickDoor(selectedIndex) {
         }
     });
 
-    state = 'REVEAL'; // Change state to 'REVEAL'
+    state = 'REVEAL';
     revealGoat();
 }
 
 function revealGoat() {
-    // Reveal a goat behind a non-winning, non-picked door
     do {
         goatDoorIndex = Math.floor(Math.random() * 3);
     } while (goatDoorIndex === winningDoor || goatDoorIndex === pickedDoor);
 
-    const goatIcon = doors[goatDoorIndex].querySelector('.icon-container i');
-    goatIcon.className = 'fa-solid fa-hippo'; // Set icon to hippo
-    doors[goatDoorIndex].classList.add('open')
-    
-    // Show options to stay or switch
-    document.getElementById('instruction').innerHTML = `Switch to another door?`;
+    doors[goatDoorIndex].classList.add('open');
     document.getElementById('choices').classList.remove('hidden');
+    document.getElementById('instruction').innerHTML = `Switch to another door?`;
+
+    // Reveal only the goat icon
+    const goatIcon = document.querySelectorAll('#icons i')[goatDoorIndex];
+    goatIcon.style.visibility = 'visible';
 }
 
 function finalizeChoice(didSwitch) {
@@ -121,37 +127,69 @@ function finalizeChoice(didSwitch) {
 
     let finalDoorIndex;
 
-    // If player switches, change their selected door to the other closed door
+    // Remove 'prev' class from all doors
+    doors.forEach(door => door.classList.remove('prev'));
+
     if (didSwitch) {
+        doors[pickedDoor].classList.add('prev'); // Mark previous choice
         finalDoorIndex = [0, 1, 2].find(index => index !== pickedDoor && index !== goatDoorIndex);
-        doors[finalDoorIndex].classList.add('final'); // Add green color to the final switched door
+        doors[finalDoorIndex].classList.add('picked'); // Mark final choice
     } else {
         finalDoorIndex = pickedDoor;
-        doors[finalDoorIndex].classList.replace('picked', 'final'); // Replace red with green on the stayed door
     }
 
-    // Reveal all doors
+    // Update doors based on whether they are correct or incorrect
     doors.forEach((door, index) => {
-        const icon = door.querySelector('.icon-container i');
+        door.classList.add('open');
+        door.classList.add(index === winningDoor ? 'right' : 'wrong');
+    });
+
+    // Update icons based on final decision
+    updateIcons();
+
+    // Update instruction text based on win or lose
+    document.getElementById('instruction').innerHTML = finalDoorIndex === winningDoor ? 'You WIN!' : 'You LOSE!';
+
+    doors.forEach((door) => door.classList.add('open'));
+    document.querySelectorAll('#icons i').forEach(icon => {
+        icon.style.visibility = 'visible';
+    });
+
+    // Send result to the backend
+    const userId = getCookie('user_id');
+    const record = document.getElementById('recordTrial').checked;
+    recordMontyHallResult(userId, didSwitch, finalDoorIndex === winningDoor, record);
+
+    // Update UI elements
+    document.getElementById('choices').classList.add('hidden');
+    document.getElementById('play-again').classList.remove('hidden');
+}
+
+function updateIcons() {
+    const icons = document.querySelectorAll('#icons i');
+    icons.forEach((icon, index) => {
         if (index === winningDoor) {
             icon.className = 'fa-solid fa-car-side'; // Winning door gets a car
         } else {
             icon.className = 'fa-solid fa-hippo'; // Other doors get a hippo
         }
-        door.classList.add('open');
+        icon.style.visibility = 'hidden'; // Initially hide icons
     });
+}
 
-    // Determine win or lose
-    const didWin = finalDoorIndex === winningDoor;
-    document.getElementById('instruction').innerHTML = didWin ? 'You Win!' : 'You Lose!';
+function positionIcons() {
+    const doorsContainer = document.getElementById('doors');
+    const icons = document.querySelectorAll('#icons i');
+    const doorRects = Array.from(doors).map(door => door.getBoundingClientRect());
+    const containerRect = doorsContainer.getBoundingClientRect();
 
-    // Send result to the backend
-    const userId = getCookie('user_id');
-    const record = document.getElementById('recordTrial').checked;
-    recordMontyHallResult(userId, didSwitch, didWin, record);
-
-    document.getElementById('choices').classList.add('hidden'); // Show play again button
-    document.getElementById('play-again').classList.remove('hidden'); // Show play again button
+    icons.forEach((icon, index) => {
+        const doorRect = doorRects[index];
+        icon.style.position = 'absolute';
+        icon.style.left = (doorRect.left - containerRect.left + doorRect.width / 2 - icon.offsetWidth / 2) + 'px';
+        icon.style.top = (doorRect.top - containerRect.top + doorRect.height / 2 - icon.offsetHeight / 2) + 'px';
+        icon.style.visibility = 'visible'; // Make icon visible when positioned
+    });
 }
 
 function recordMontyHallResult(userId, didSwitch, didWin, record) {
@@ -163,6 +201,9 @@ function recordMontyHallResult(userId, didSwitch, didWin, record) {
         body: JSON.stringify({ user_id: userId, change: didSwitch, win: didWin, record: record })
     })
     .then(response => response.json())
-    .then(data => console.log(data.message))
+    .then(data => {
+        console.log(data.message)
+        updateTotalTrials(userId);
+    })
     .catch(error => console.error('Error:', error));
 }

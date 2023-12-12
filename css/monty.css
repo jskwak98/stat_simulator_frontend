@@ -127,14 +127,14 @@
     margin: auto;
     padding: 20px;
     font-family: Poppins-Bold;
+    position: relative;
 }
 
 #doors {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
     gap: 20px;
-    margin-bottom: 20px; /* Ensure space between doors and instruction text */
+    margin-bottom: 20px;
 }
 
 .door {
@@ -144,52 +144,42 @@
     height: 150px;
     cursor: pointer;
     position: relative;
-    transform-style: preserve-3d; /* Ensure child elements can have their own 3D space */
-    z-index: 1;
+    transform-style: preserve-3d;
+    transition: transform 0.5s ease;
 }
 
 .door.open {
-    transform: rotateY(120deg); /* Door opening effect */
-    transition: transform 0.5s ease;
-    z-index: 3;
+    transform: perspective(600px) rotateY(120deg);
 }
 
-.icon-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    transform: translateZ(2px); /* Slightly above the door to start */
+#icons {
     display: flex;
     justify-content: center;
-    align-items: center;
-    transition: transform 0.5s ease 0.25s; /* Start moving after door begins to open */
-    z-index: 2;
+    gap: 20px;
+    top: 0;
+    width: 100%;
+    pointer-events: none;
 }
 
-.icon-container {
-    transform: translateZ(0px); /* Start at the door's level */
-    transition: transform 0.5s ease 0.25s; /* Move forward after door begins to open */
-}
-
-.door.open .icon-wrapper {
-    transform: translateZ(60px); /* Move forward well after the door has opened */
-}
-
-
-.door.open .icon-container {
-    transform: translateZ(100px); /* Move forward after door opens */
+#icons i {
+    font-size: 3.5rem;
+    visibility: hidden; /* Initially hidden, shown when doors are opened */
 }
 
 .door.picked {
-    background-color: var(--red); /* Highlight color for picked door */
-    color: white; /* Change text color for better visibility */
+    border: 5px solid blue; /* Current selection */
 }
 
-.door.final {
-    background-color: var(--green); /* Color for the final selected door */
-    color: white; /* Change text color for better visibility */
+.door.prev {
+    border: 5px dashed blue; /* Previous selection */
+}
+
+.door.right {
+    background-color: #AAFF00; /* Correct choice */
+}
+
+.door.wrong {
+    background-color: #FF5733; /* Incorrect choice */
 }
 
 #instruction {
