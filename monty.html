@@ -7,8 +7,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/dice.css">
     <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/monty.css">
 </head>
 <body>
     <!-- Sidebar Toggle Button -->
@@ -37,38 +37,37 @@
     </div>
     <div id="page-content-wrapper">
         <div class="page-title">
-            <h1>Game 1</h1>
+            <h1>Game 2</h1>
         </div>
-        <div id="dice-result-wrapper">
-            <div id="dice-results">
-                <div class="dice" id="dice1">?</div>
-                <div class="dice" id="dice2">?</div>
-                <div class="dice" id="dice3">?</div>
-                <div class="dice" id="dice4">?</div>
-                <div class="dice" id="dice5">?</div>
-                <div class="dice" id="dice6">?</div>
+
+        <div id="montyHallGame">
+            <div id="doors">
             </div>
-            <div id="sum-of-rolls">Sum of Rolls: ?</div>
+            <p id="instruction">Pick a Door!</p>
+            <div id="choices" class="choices-container hidden">
+                <button id="yes" class="game-button">Switch</button>
+                <button id="no" class="game-button">Stay</button>
+            </div>
+            <button id="play-again" class="game-button hidden">Play Again</button>
         </div>
+        
+        
         <div class="record-mode">
-            <div class="total-rolls">
-                <span id="totalRolls">Total Rolls: 0</span>
+            <div class="total-trials">
+                <span id="totalTrials">Total Trials: 0</span>
             </div>
             <div class="right-side">
                 <span>Record :</span>
                 <div class="material-switch pull-right">
-                    <input id="recordRoll" type="checkbox"/>
-                    <label for="recordRoll" class="label-success"></label>
+                    <input id="recordTrial" type="checkbox"/>
+                    <label for="recordTrial" class="label-success"></label>
                 </div>
             </div>
         </div>
-        <div class="roll-controls">
-            <button id="rollButton" class="highlight-button btn btn-large button xs-margin-bottom-five"><i class="fa-solid fa-dice"></i>ROLL!</button>
-        </div>
-        
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
     <script src="https://kit.fontawesome.com/49c8324aef.js" crossorigin="anonymous"></script>
-    <script src="/script/dice.js"></script>
+    <script src="/script/monty.js"></script>
     <script src="/script/sidebar.js"></script>
 </body>
 </html>
