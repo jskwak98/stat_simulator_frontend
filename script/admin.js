@@ -10,7 +10,6 @@ function getCookie(name) {
 }
 
 function toggleFeature(feature, isEnabled = true) {
-    const url = `http://127.0.0.1:8000/admin/${feature}`;
     const userId = getCookie("user_id"); // Get user_id from cookie
 
     // Check if user is admin
@@ -19,22 +18,24 @@ function toggleFeature(feature, isEnabled = true) {
         return;
     }
 
+    // Append admin_id as a query parameter
+    const url = `http://127.0.0.1:8000/admin/${feature}?admin_id=${userId}`;
+
     fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ admin_id: userId })
+        }
     })
     .then(response => response.json())
     .then(data => {
         alert(data.message);
         if (feature === 'disable_all') {
             // Uncheck all checkboxes
-            document.getElementById('RollDice').checked = false;
-            document.getElementById('MontyHall').checked = false;
-            document.getElementById('Choice').checked = false;
-            document.getElementById('AntiChoice').checked = false;
+            document.getElementById("enable_dice").checked = false;
+            document.getElementById("enable_monty_hall").checked = false;
+            document.getElementById("enable_choice").checked = false;
+            document.getElementById("enable_anti_choice").checked = false;
         }
     })
     .catch(error => console.error('Error:', error));

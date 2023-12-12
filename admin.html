@@ -18,7 +18,7 @@
         <i id="closeBtn" class="fa-solid fa-xmark closebtn"></i>
         <!-- Sidebar content -->
         <a href="index.html">Home</a>
-        <a href="#">Game 1</a>
+        <a href="dice.html">Game 1</a>
         <a href="#">Game 2</a>
         <a href="#">Game 3-1</a>
         <a href="#">Game 3-2</a>
@@ -33,54 +33,52 @@
                 <a href="#" id="logoutButton" class="logout-button"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
             </div>
         </div>
-
-        <div id="page-content-wrapper" class="container">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
-                    <div class="panel panel-default">
-                        <!-- Default panel contents -->
-                        <div class="panel-heading">ADMIN PANEL</div>
-                    
-                        <!-- List group -->
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                Enable Roll Dice
-                                <div class="material-switch pull-right">
-                                    <input id="RollDice" type="checkbox"/>
-                                    <label for="RollDice" class="label-info"></label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                Enable Monty Hall
-                                <div class="material-switch pull-right">
-                                    <input id="MontyHall" type="checkbox"/>
-                                    <label for="MontyHall" class="label-info"></label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                Enable Choice
-                                <div class="material-switch pull-right">
-                                    <input id="Choice" type="checkbox"/>
-                                    <label for="Choice" class="label-info"></label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                Enable Anti-Choice
-                                <div class="material-switch pull-right">
-                                    <input id="AntiChoice" type="checkbox"/>
-                                    <label for="AntiChoice" class="label-info"></label>
-                                </div>
-                            </li>
-                            <li class="list-group-item">
-                                Disable All
-                                <button id="disableAll" onclick="toggleFeature('disable_all')" class="btn btn-warning pull-right">Disable All</button>
-                            </li>
-                        </ul>
-                    </div>            
-                </div>
+    </div>
+    <div id="page-content-wrapper" class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">ADMIN PANEL</div>
+                
+                    <!-- List group -->
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            Enable Roll Dice
+                            <div class="material-switch pull-right">
+                                <input id="enable_dice" type="checkbox"/>
+                                <label for="enable_dice" class="label-info"></label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            Enable Monty Hall
+                            <div class="material-switch pull-right">
+                                <input id="enable_monty_hall" type="checkbox"/>
+                                <label for="enable_monty_hall" class="label-info"></label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            Enable Choice
+                            <div class="material-switch pull-right">
+                                <input id="enable_choice" type="checkbox"/>
+                                <label for="enable_choice" class="label-info"></label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            Enable Anti-Choice
+                            <div class="material-switch pull-right">
+                                <input id="enable_anti_choice" type="checkbox"/>
+                                <label for="enable_anti_choice" class="label-info"></label>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            Disable All
+                            <button id="disable_all" onclick="toggleFeature('disable_all')" class="btn btn-warning pull-right">Disable All</button>
+                        </li>
+                    </ul>
+                </div>            
             </div>
         </div>
-
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
