@@ -106,3 +106,10 @@ body, html {
     color: #f1f1f1;
 }
 
+.page-title {
+    font-family: Poppins-Bold;
+    font-size: 40px;
+    display: flex;
+    justify-content: center; /* Horizontally center content in a flex container */
+    align-items: center; /* Vertically center content (if needed) */
+}

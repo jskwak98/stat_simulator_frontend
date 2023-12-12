@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roll Simulation</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/dice.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>
+    <!-- Sidebar Toggle Button -->
+    <div id="navbar">
+        <a href="#" class="btn" id="menu-toggle"><i class="fa-solid fa-bars"></i></a>
+    </div>
+    <div id="sidebar">
+        <i id="closeBtn" class="fa-solid fa-xmark closebtn"></i>
+        <!-- Sidebar content -->
+        <a href="index.html">Home</a>
+        <a href="dice.html">Game 1</a>
+        <a href="#">Game 2</a>
+        <a href="#">Game 3-1</a>
+        <a href="#">Game 3-2</a>
+        <a href="#">Insights</a>
+        <a href="/admin.html">Admin</a>
+        <!-- Horizontal Separator -->
+        <div class="sidebar-separator"></div>
+            <!-- User Nickname and Logout -->
+            <div class="sidebar-bottom">
+                <i id="user-pic" class="fa-regular fa-circle-user"></i>
+                <div class="user-nickname"></div>
+                <a href="#" id="logoutButton" class="logout-button"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            </div>
+        </div>
+    </div>
+    <div id="page-content-wrapper">
+        <div class="page-title">
+            <h1>Game 1</h1>
+        </div>
+        <div id="dice-result-wrapper">
+            <div id="dice-results">
+                <div class="dice" id="dice1">?</div>
+                <div class="dice" id="dice2">?</div>
+                <div class="dice" id="dice3">?</div>
+                <div class="dice" id="dice4">?</div>
+                <div class="dice" id="dice5">?</div>
+                <div class="dice" id="dice6">?</div>
+            </div>
+            <div id="sum-of-rolls">Sum of Rolls: ?</div>
+        </div>
+        <div class="record-mode">
+            <div class="total-rolls">
+                <span id="totalRolls">Total Rolls: 0</span>
+            </div>
+            <div class="right-side">
+                <span>Record :</span>
+                <div class="material-switch pull-right">
+                    <input id="recordRoll" type="checkbox"/>
+                    <label for="recordRoll" class="label-success"></label>
+                </div>
+            </div>
+        </div>
+        <div class="roll-controls">
+            <button id="rollButton" class="highlight-button btn btn-large button xs-margin-bottom-five"><i class="fa-solid fa-dice"></i>ROLL!</button>
+        </div>
+        
+    </div>
+    <script src="https://kit.fontawesome.com/49c8324aef.js" crossorigin="anonymous"></script>
+    <script src="/script/dice.js"></script>
+    <script src="/script/sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+@font-face {
+    font-family: Poppins-Bold;
+    src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+}
+  
+
+#dice-results {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-family: Poppins-Bold;
+}
+
+.dice {
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    margin: 5px;
+    text-align: center;
+    line-height: 50px; /* Center text vertically */
+    font-family: Poppins-Bold;
+    border-radius: 5px;
+    font-size: x-large;
+}
+
+#sum-of-rolls {
+    text-align: center;
+    font-family: Poppins-Bold;
+    margin-bottom: 20px;
+    padding-top: 20px;
+    font-size: x-large;
+}
+
+#rollButton {
+    font-family: Poppins-Bold;
+    font-size: large;
+}
+
+.btn {
+    display: inline-block;
+    margin-right: 20px;
+    letter-spacing: 2px;
+    border: 1px solid transparent
+}
+
+.btn-round {
+    border-radius: 4px !important
+}
+
+.btn i {
+    margin-right: 15px
+}
+
+.btn.btn-large i {
+    font-size: 24px
+}
+
+.button {
+    margin-top: 0;
+    margin-bottom: 0
+}
+
+.btn.btn-large {
+    font-size: 18px;
+    padding: 18px 35px
+}
+
+.highlight-button {
+    border: 2px solid #000;
+    display: inline-block;
+    padding: 8px 20px 9px;
+    font-size: 12px;
+    color: #000;
+    background-color: transparent
+}
+
+.highlight-button:hover {
+    background-color: #7FFFD4;
+    border: 2px solid #00FFFF;
+}
+
+.highlight-button i {
+    color: #000
+}
+
+.material-switch > input[type="checkbox"] {
+    display: none;   
+}
+
+.material-switch > label {
+    cursor: pointer;
+    height: 0px;
+    position: relative; 
+    width: 40px;  
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: -8px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+}
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
+}
+
+.roll-controls {
+    text-align: center; /* Center align for the button */
+    margin-top: 20px; /* Spacing from the content above */
+}
+
+#dice-result-wrapper {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 3px solid black;
+}
+
+.record-mode {
+    display: flex;
+    justify-content: space-between; /* Space out elements */
+    align-items: center; /* Vertically center the content */
+    padding: 20px 20px; /* Padding on both sides */
+}
+
+.total-rolls {
+    font-family: Poppins-Bold;
+    font-size : 20px;
+}
+
+.right-side {
+    display: flex;
+    align-items: center;
+}
+
+.right-side span {
+    margin-right: 10px; /* Spacing between label and switch */
+    font-family: Poppins-Bold;
+    font-size : 20px;
+}
