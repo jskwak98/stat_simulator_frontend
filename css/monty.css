@@ -183,7 +183,9 @@
 }
 
 #instruction {
+    margin-top: 20px;
     margin-bottom: 20px; /* Ensure space between instruction text and choices */
+    font-size: x-large;
 }
 
 #choices {
