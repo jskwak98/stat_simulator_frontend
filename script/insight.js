@@ -174,6 +174,10 @@ function displayUsersByAntiChoice(number) {
             const usersTable = document.getElementById('usersTable');
             usersTable.innerHTML = ''; // Clear previous table content
 
+            const tableTitle = document.createElement('h3');
+            tableTitle.textContent = `${number}번 고른 사람 명단`;
+            usersTable.appendChild(tableTitle);
+
             // Create and append a table
             const table = document.createElement('table');
             usersTable.appendChild(table);
@@ -242,6 +246,12 @@ function prepareChartPanel(game, userId) {
         game1winPanel.id = 'game1winPanel';
         game1winPanel.classList.add('game1win-panel');
         chartPanel.appendChild(game1winPanel);
+    } else if (game === 'game2win') {
+        // Prepare a panel for the 'game2win' tables
+        const game2winPanel = document.createElement('div');
+        game2winPanel.id = 'game2winPanel';
+        game2winPanel.classList.add('game2win-panel');
+        chartPanel.appendChild(game2winPanel);
     }
 }
 
@@ -265,7 +275,9 @@ document.getElementById('drawChartButton').addEventListener('click', function() 
         }
     } else if (selectedGame === 'game1win') {
         drawGame1WinTables();
-    }
+    } else if (selectedGame === 'game2win') {
+        displayWinningStudents();
+    } 
 });
 
 /* wins */
@@ -322,4 +334,41 @@ function createTable(title, data, columns) {
     panel.appendChild(tableContainer);
 }
 
+function displayWinningStudents() {
+    fetch('http://127.0.0.1:8000/winning_students')
+        .then(response => response.json())
+        .then(data => {
+            const panel = document.getElementById('game2winPanel');
+            panel.innerHTML = ''; // Clear any existing content
 
+            // Create tables for best and worst students
+            createStudentTable(panel, data.best_students, '최고 승률 학생들');
+            createStudentTable(panel, data.worst_students, '최저 승률 학생들');
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function createStudentTable(container, students, title) {
+    const tableTitle = document.createElement('h3');
+    tableTitle.textContent = title;
+    container.appendChild(tableTitle);
+
+    const table = document.createElement('table');
+    container.appendChild(table);
+
+    // Table headers
+    const headerRow = table.insertRow();
+    ['User ID', 'Nickname', 'Number of Wins'].forEach(text => {
+        const cell = headerRow.insertCell();
+        cell.textContent = text;
+    });
+
+    // Table rows
+    students.forEach(student => {
+        const row = table.insertRow();
+        ['user_id', 'nickname', 'number_of_wins'].forEach(key => {
+            const cell = row.insertCell();
+            cell.textContent = student[key];
+        });
+    });
+}

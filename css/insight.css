@@ -79,7 +79,7 @@ canvas {
     text-align: left;
 }
 
-#usersTable th {
+#usersTable thead {
     background-color: #4CAF50;
     color: white;
 }
@@ -117,5 +117,47 @@ canvas {
 }
 
 .game1win-panel tr:hover {
+    background-color: #ddd;
+}
+
+.game2win-panel {
+    display: flex;
+    justify-content: space-around; /* This will space out the tables evenly */
+    align-items: flex-start; /* Aligns tables to the top */
+    flex-wrap: wrap; /* Allows tables to wrap into a new row if there's not enough space */
+    padding: 10px;
+}
+
+.game2win-panel .table-container {
+    margin-bottom: 20px;
+    flex: 1; /* This will allow each table container to take equal width */
+    min-width: 300px; /* Minimum width for each table container to prevent them from becoming too small */
+}
+
+.game2win-panel .table-container {
+    margin-bottom: 20px;
+}
+
+.game2win-panel table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.game2win-panel th, .game2win-panel td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.game2win-panel tr:first-child {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.game2win-panel tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.game2win-panel tr:hover {
     background-color: #ddd;
 }
