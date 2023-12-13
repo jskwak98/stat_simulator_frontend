@@ -236,6 +236,12 @@ function prepareChartPanel(game, userId) {
             usersTable.id = 'usersTable';
             chartPanel.appendChild(usersTable);
         }
+    } else if (game === 'game1win') {
+        // Prepare a panel for the 'game1win' tables
+        const game1winPanel = document.createElement('div');
+        game1winPanel.id = 'game1winPanel';
+        game1winPanel.classList.add('game1win-panel');
+        chartPanel.appendChild(game1winPanel);
     }
 }
 
@@ -257,5 +263,63 @@ document.getElementById('drawChartButton').addEventListener('click', function() 
         if (userId) {
             displayUsersByAntiChoice(userId); // Display users table if a user ID is input
         }
+    } else if (selectedGame === 'game1win') {
+        drawGame1WinTables();
     }
 });
+
+/* wins */
+function drawGame1WinTables() {
+    fetch(`http://127.0.0.1:8000/top_dice_rolls`)
+        .then(response => response.json())
+        .then(data => {
+            createTable('높게!', data.top_rolls, ['user_id', 'nickname', 'sum_of_rolls', 'rolls']);
+            createTable('낮게!', data.bottom_rolls, ['user_id', 'nickname', 'sum_of_rolls', 'rolls']);
+        })
+        .catch(error => console.error('Error:', error));
+
+    fetch(`http://127.0.0.1:8000/rarest_rolls`)
+        .then(response => response.json())
+        .then(data => {
+            createTable('희귀하게!', data.top_3_users, ['user_id', 'total_score', 'top_rolls']);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function createTable(title, data, columns) {
+    const panel = document.getElementById('game1winPanel');
+    const tableContainer = document.createElement('div');
+    tableContainer.classList.add('table-container');
+
+    const tableTitle = document.createElement('h3');
+    tableTitle.textContent = title;
+    tableContainer.appendChild(tableTitle);
+
+    const table = document.createElement('table');
+    const thead = document.createElement('thead');
+    const trHead = document.createElement('tr');
+    columns.forEach(column => {
+        const th = document.createElement('th');
+        th.textContent = column;
+        trHead.appendChild(th);
+    });
+    thead.appendChild(trHead);
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    data.forEach(row => {
+        const tr = document.createElement('tr');
+        columns.forEach(column => {
+            const td = document.createElement('td');
+            td.textContent = typeof row[column] === 'object' ? JSON.stringify(row[column]) : row[column];
+            tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+
+    tableContainer.appendChild(table);
+    panel.appendChild(tableContainer);
+}
+
+
