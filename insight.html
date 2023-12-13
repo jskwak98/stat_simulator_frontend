@@ -7,7 +7,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/choice.css">
+    <link rel="stylesheet" href="css/insight.css">
     <link rel="stylesheet" href="css/sidebar.css">
 </head>
 <body>
@@ -41,19 +41,29 @@
     </div>
     <div id="page-content-wrapper">
         <div class="page-title">
-            <h1>Game 3-2</h1>
+            <h1>Insights</h1>
         </div>
-        <div id="number-choice-wrapper">
-            <div id="number-choices" class="number-pad">
-                <!-- Number buttons will be placed here by JS -->
-            </div>
+    
+        <div id="chartPanel" class="chart-panel">
+            <canvas id="diceHistogram"></canvas>
         </div>
-        <div class="choice-controls">
-            <button id="submitChoice" class="highlight-button btn btn-large button">Submit<i class="fa-regular fa-paper-plane"></i></button>
+
+        <div class="insight-controls">
+            <select id="gameSelection" class="insight-select left-controls">
+                <option value="game1">Game 1</option>
+                <option value="game2">Game 2</option>
+                <option value="game3-1">Game 3-1</option>
+                <option value="game3-2">Game 3-2</option>
+            </select>
+            
+            <button id="drawChartButton" class="highlight-button btn btn-large button">Draw</button>
+            
+            <input type="text" id="userIdInput" class="insight-input right-controls" placeholder="User ID (optional)">
         </div>
     </div>
     <script src="https://kit.fontawesome.com/49c8324aef.js" crossorigin="anonymous"></script>
-    <script src="/script/choice.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/script/insight.js"></script>
     <script src="/script/sidebar.js"></script>
 </body>
 </html>
