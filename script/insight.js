@@ -20,22 +20,26 @@ function getCookie(name) {
 }
 
 /* chart drawing */
-let previousChart = null;
+let previousCharts = [];
 
-function drawChart(chartType, chartData, chartOptions, chartId) {
+function drawChart(chartType, chartData, chartOptions, chartId, clearPrevious = false) {
     const ctx = document.getElementById(chartId).getContext('2d');
 
-    // Destroy existing chart instance if it exists
-    if (previousChart) {
-        previousChart.destroy();
+    if (clearPrevious) {
+        // Destroy all existing chart instances
+        previousCharts.forEach(chart => chart.destroy());
+        previousCharts = []; // Clear the array
     }
 
     // Create a new chart instance
-    previousChart = new Chart(ctx, {
+    const newChart = new Chart(ctx, {
         type: chartType,
         data: chartData,
         options: chartOptions
     });
+
+    // Store the new chart instance
+    previousCharts.push(newChart);
 }
 
 function drawDiceHistogram(userId = '') {
@@ -63,18 +67,84 @@ function drawDiceHistogram(userId = '') {
                 }
             };
 
-            drawChart('bar', chartData, chartOptions, 'diceHistogram');
+            drawChart('bar', chartData, chartOptions, 'diceHistogram', true);
         })
         .catch(error => console.error('Error:', error));
 }
 
+function drawMontyHallCharts(userId = '') {
+    // Fetch strategy stats
+    fetch(`http://127.0.0.1:8000/get_strategy_stats${userId ? '?user_id=' + userId : ''}`)
+        .then(response => response.json())
+        .then(data => {
+            const strategyChartData = {
+                labels: ['Changed', 'Not Changed'],
+                datasets: [{
+                    label: 'Strategy Choices',
+                    data: [data.changed, data.not_changed],
+                    backgroundColor: ['#FF6384', '#36A2EB']
+                }]
+            };
+            drawChart('pie', strategyChartData, {}, 'strategyChart', true);
+        });
+
+    // Fetch win stats
+    fetch(`http://127.0.0.1:8000/get_win_stats${userId ? '?user_id=' + userId : ''}`)
+    .then(response => response.json())
+    .then(data => {
+        const winRateChartData = {
+            labels: ['Changed', 'Not Changed'],
+            datasets: [{
+                label: 'Win Rate',
+                data: [data.changed_win_rate, data.not_changed_win_rate],
+                backgroundColor: ['#FFCE56', '#FF6384']
+            }]
+        };
+
+        // Set a timeout before drawing the second chart
+        setTimeout(() => {
+            drawChart('bar', winRateChartData, {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }, 'winRateChart', false);
+        }, 50); // Adjust the delay (500ms) as needed
+    });
+}
+
+function prepareChartPanel(game) {
+    const chartPanel = document.getElementById('chartPanel');
+    chartPanel.innerHTML = ''; // Clear existing canvas elements
+
+    // Add canvas elements based on the selected game
+    if (game === 'game1') {
+        const diceHistogramCanvas = document.createElement('canvas');
+        diceHistogramCanvas.id = 'diceHistogram';
+        chartPanel.appendChild(diceHistogramCanvas);
+    } else if (game === 'game2') {
+        const strategyCanvas = document.createElement('canvas');
+        strategyCanvas.id = 'strategyChart';
+        chartPanel.appendChild(strategyCanvas);
+
+        const winRateCanvas = document.createElement('canvas');
+        winRateCanvas.id = 'winRateChart';
+        chartPanel.appendChild(winRateCanvas);
+    }
+    // Add cases for other games as needed
+}
 
 document.getElementById('drawChartButton').addEventListener('click', function() {
     const selectedGame = document.getElementById('gameSelection').value;
     const userId = document.getElementById('userIdInput').value;
 
+    prepareChartPanel(selectedGame); // Prepare the panel for the selected game
+
     if (selectedGame === 'game1') {
         drawDiceHistogram(userId);
+    } else if (selectedGame === 'game2') {
+        drawMontyHallCharts(userId);
     }
     // Add conditions for other games if needed
 });

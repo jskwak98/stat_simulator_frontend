@@ -47,7 +47,19 @@
     margin-bottom: 30px;
     border: 1px solid #ccc;
     padding: 20px;
-    min-height: 500px; /* Adjust as needed */
+    min-height: 500px;
+}
+
+#chartPanel {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+canvas {
+    margin: 10px;
+    max-height: 500px;
+    max-width: 600px;
 }
 
 .spacer {
