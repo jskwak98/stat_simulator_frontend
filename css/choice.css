@@ -1,0 +1,85 @@
+@font-face {
+    font-family: Poppins-Bold;
+    src: url('../fonts/poppins/Poppins-Bold.ttf'); 
+}
+
+.number-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 50px); /* Create 3 columns, each 50px wide */
+    justify-content: center; /* Center the grid */
+    gap: 25px; /* Spacing between buttons */
+}
+
+.number {
+    width: 60px;
+    height: 60px;
+    border: 2px solid black;
+    text-align: center;
+    line-height: 60px; /* Center text vertically */
+    font-family: Poppins-Bold;
+    border-radius: 5px;
+    font-size: x-large;
+    cursor: pointer;
+    background-color: #FFF; /* Background color */
+}
+
+.number.selected {
+    background-color: #7FFFD4; /* Replace with your preferred color */
+    border: 2px solid #00FFFF;
+}
+
+#number-choice-wrapper {
+    padding: 30px;
+    margin: 30px 20px;
+    border: 3px solid black;
+    display: flex;
+    justify-content: center; /* Center the number pad */
+}
+
+.choice-controls {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.btn {
+    font-family: Poppins-Bold;
+    display: inline-block;
+    letter-spacing: 2px;
+    border: 1px solid transparent
+}
+
+.btn-round {
+    border-radius: 4px !important
+}
+
+.btn i {
+    padding-left: 10px;
+}
+
+.btn.btn-large i {
+    font-size: 24px
+}
+
+.button {
+    margin-top: 0;
+    margin-bottom: 0
+}
+
+.highlight-button {
+    border: 2px solid #000;
+    display: inline-block;
+    padding: 8px 20px 9px;
+    font-size: 12px;
+    color: #000;
+    background-color: transparent
+}
+
+.btn.btn-large {
+    font-size: 18px;
+    padding: 18px 35px
+}
+
+.highlight-button:hover {
+    background-color: #7FFFD4;
+    border: 2px solid #00FFFF;
+}
