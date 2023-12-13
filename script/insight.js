@@ -114,7 +114,96 @@ function drawMontyHallCharts(userId = '') {
     });
 }
 
-function prepareChartPanel(game) {
+function drawChoiceFrequency() {
+    fetch('http://127.0.0.1:8000/choice_frequency')
+        .then(response => response.json())
+        .then(data => {
+            // Prepare chart data
+            const chartData = {
+                labels: Object.keys(data),
+                datasets: [{
+                    label: 'Number of Choices',
+                    data: Object.values(data),
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            // Draw the chart
+            drawChart('bar', chartData, {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }, 'choiceHistogram', true);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function drawAntiChoiceFrequency() {
+    fetch('http://127.0.0.1:8000/anti_choice_frequency')
+        .then(response => response.json())
+        .then(data => {
+            const chartData = {
+                labels: Object.keys(data),
+                datasets: [{
+                    label: 'Number of Anti-Choices',
+                    data: Object.values(data),
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            };
+            drawChart('bar', chartData, {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }, 'antiChoiceHistogram', true);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function displayUsersByAntiChoice(number) {
+    fetch(`http://127.0.0.1:8000/users_by_anti_choice/${number}`)
+        .then(response => response.json())
+        .then(users => {
+            const usersTable = document.getElementById('usersTable');
+            usersTable.innerHTML = ''; // Clear previous table content
+
+            // Create and append a table
+            const table = document.createElement('table');
+            usersTable.appendChild(table);
+
+            // Create table header
+            const thead = document.createElement('thead');
+            table.appendChild(thead);
+            const headerRow = thead.insertRow();
+            let headerCell = headerRow.insertCell();
+            headerCell.textContent = 'ID';
+            headerCell = headerRow.insertCell();
+            headerCell.textContent = '닉네임';
+
+            // Create table body
+            const tbody = document.createElement('tbody');
+            table.appendChild(tbody);
+
+            // Insert user data into table
+            users.forEach(user => {
+                const row = tbody.insertRow();
+                let cell = row.insertCell();
+                cell.textContent = user.user_id;
+                cell = row.insertCell();
+                cell.textContent = user.nickname;
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function prepareChartPanel(game, userId) {
     const chartPanel = document.getElementById('chartPanel');
     chartPanel.innerHTML = ''; // Clear existing canvas elements
 
@@ -131,20 +220,42 @@ function prepareChartPanel(game) {
         const winRateCanvas = document.createElement('canvas');
         winRateCanvas.id = 'winRateChart';
         chartPanel.appendChild(winRateCanvas);
+    } else if (game === 'game3-1') {
+        const diceHistogramCanvas = document.createElement('canvas');
+        diceHistogramCanvas.id = 'choiceHistogram';
+        chartPanel.appendChild(diceHistogramCanvas);
+    } else if (game === 'game3-2') {
+        // For anti-choice game
+        const antiChoiceCanvas = document.createElement('canvas');
+        antiChoiceCanvas.id = 'antiChoiceHistogram';
+        chartPanel.appendChild(antiChoiceCanvas);
+        
+        if (userId){
+            // Prepare a section for the users table
+            const usersTable = document.createElement('div');
+            usersTable.id = 'usersTable';
+            chartPanel.appendChild(usersTable);
+        }
     }
-    // Add cases for other games as needed
 }
 
 document.getElementById('drawChartButton').addEventListener('click', function() {
     const selectedGame = document.getElementById('gameSelection').value;
     const userId = document.getElementById('userIdInput').value;
 
-    prepareChartPanel(selectedGame); // Prepare the panel for the selected game
+    prepareChartPanel(selectedGame, userId); // Prepare the panel for the selected game
 
     if (selectedGame === 'game1') {
         drawDiceHistogram(userId);
     } else if (selectedGame === 'game2') {
         drawMontyHallCharts(userId);
+    } else if (selectedGame === 'game3-1') {
+        drawChoiceFrequency();
+    } else if (selectedGame === 'game3-2') {
+        // For the anti-choice game
+        drawAntiChoiceFrequency(); // Always draw the histogram
+        if (userId) {
+            displayUsersByAntiChoice(userId); // Display users table if a user ID is input
+        }
     }
-    // Add conditions for other games if needed
 });

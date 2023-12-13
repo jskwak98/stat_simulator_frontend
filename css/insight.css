@@ -62,6 +62,33 @@ canvas {
     max-width: 600px;
 }
 
-.spacer {
-    flex-grow: 1; /* Invisible spacer */
+#usersTable {
+    margin-top: 20px;
+    text-align: center;
 }
+
+#usersTable table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: auto;
+}
+
+#usersTable th, #usersTable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#usersTable th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#usersTable tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#usersTable tr:hover {
+    background-color: #ddd;
+}
+
