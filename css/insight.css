@@ -161,3 +161,18 @@ canvas {
 .game2win-panel tr:hover {
     background-color: #ddd;
 }
+
+
+.game1prob-panel {
+    padding: 20px;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.game1prob-panel p {
+    margin: 10px 0;
+    margin-bottom: 1em;
+    font-size: xx-large;
+}

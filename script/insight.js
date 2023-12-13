@@ -252,6 +252,12 @@ function prepareChartPanel(game, userId) {
         game2winPanel.id = 'game2winPanel';
         game2winPanel.classList.add('game2win-panel');
         chartPanel.appendChild(game2winPanel);
+    } else if (game === 'game1prob') {
+        // Create a div to display the game1prob message
+        const game1probDiv = document.createElement('div');
+        game1probDiv.id = 'game1probPanel';
+        game1probDiv.classList.add('game1prob-panel');
+        chartPanel.appendChild(game1probDiv);
     }
 }
 
@@ -277,7 +283,9 @@ document.getElementById('drawChartButton').addEventListener('click', function() 
         drawGame1WinTables();
     } else if (selectedGame === 'game2win') {
         displayWinningStudents();
-    } 
+    } else if (selectedGame === 'game1prob') {
+        getDiceProbabilities(userId)
+    }
 });
 
 /* wins */
@@ -371,4 +379,26 @@ function createStudentTable(container, students, title) {
             cell.textContent = student[key];
         });
     });
+}
+
+function getDiceProbabilities(sumRolls) {
+    fetch(`http://127.0.0.1:8000/get_dice_probs/${sumRolls}`)
+        .then(response => response.json())
+        .then(data => {
+            const game1probPanel = document.getElementById('game1probPanel');
+            game1probPanel.innerHTML = ''; // Clear existing content
+
+            const messageParagraph = document.createElement('p');
+            messageParagraph.textContent = data.message;
+            game1probPanel.appendChild(messageParagraph);
+
+            const meanParagraph = document.createElement('p');
+            meanParagraph.textContent = '평균: ' + data.mean.toFixed(2);
+            game1probPanel.appendChild(meanParagraph);
+
+            const stdParagraph = document.createElement('p');
+            stdParagraph.textContent = '표준 편차: ' + data.std.toFixed(2);
+            game1probPanel.appendChild(stdParagraph);
+        })
+        .catch(error => console.error('Error:', error));
 }
