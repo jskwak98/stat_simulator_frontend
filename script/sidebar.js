@@ -50,3 +50,13 @@ document.getElementById('logoutButton').addEventListener('click', function() {
     // Redirect to login page
     window.location.href = 'login.html';
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const userId = getCookie('user_id');
+    if (userId === 'admin') {
+        const adminOnlyElements = document.querySelectorAll('.admin-only');
+        adminOnlyElements.forEach(element => {
+            element.style.display = 'block'; // Or 'flex', 'inline', etc., depending on your layout
+        });
+    }
+});

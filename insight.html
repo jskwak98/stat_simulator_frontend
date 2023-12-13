@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roll Simulation</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/choice.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+</head>
+<body>
+    <!-- Sidebar Toggle Button -->
+    <div id="navbar">
+        <a href="#" class="btn" id="menu-toggle"><i class="fa-solid fa-bars"></i></a>
+    </div>
+    <div id="sidebar">
+        <i id="closeBtn" class="fa-solid fa-xmark closebtn"></i>
+        <!-- Sidebar content -->
+        <a href="index.html">Home</a>
+        <a href="dice.html">Game 1</a>
+        <a href="monty.html">Game 2</a>
+        <a href="choice.html">Game 3-1</a>
+        <a href="anti-choice.html">Game 3-2</a>
+        <!-- Horizontal Separator -->
+        <div class="sidebar-separator admin-only"></div>
+        <a href="insight.html" class="admin-only">Insights</a>
+        <a href="/admin.html" class="admin-only">Admin</a>
+        <!-- Horizontal Separator -->
+        <div class="sidebar-separator"></div>
+        <a href="https://app.sli.do/event/5EkPAUYXEB4HizqmSDh4gh" target="_blank">QnA</a>
+        <div class="sidebar-separator"></div>
+            <!-- User Nickname and Logout -->
+            <div class="sidebar-bottom">
+                <i id="user-pic" class="fa-regular fa-circle-user"></i>
+                <div class="user-nickname"></div>
+                <a href="#" id="logoutButton" class="logout-button"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            </div>
+        </div>
+    </div>
+    <div id="page-content-wrapper">
+        <div class="page-title">
+            <h1>Game 3-2</h1>
+        </div>
+        <div id="number-choice-wrapper">
+            <div id="number-choices" class="number-pad">
+                <!-- Number buttons will be placed here by JS -->
+            </div>
+        </div>
+        <div class="choice-controls">
+            <button id="submitChoice" class="highlight-button btn btn-large button">Submit<i class="fa-regular fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <script src="https://kit.fontawesome.com/49c8324aef.js" crossorigin="anonymous"></script>
+    <script src="/script/choice.js"></script>
+    <script src="/script/sidebar.js"></script>
+</body>
+</html>
