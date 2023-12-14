@@ -7,7 +7,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     // Encode credentials
     const encodedCredentials = btoa(user_id + ':' + password);
 
-    fetch('http://backend:8000/login', {
+    fetch('http://152.67.208.253:8001/login', {
         method: 'POST',
         headers: {
             'Authorization': 'Basic ' + encodedCredentials

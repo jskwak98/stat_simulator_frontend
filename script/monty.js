@@ -18,7 +18,7 @@ function getCookie(name) {
 }
 
 function updateTotalTrials(userId) {
-    fetch(`http://backend:8000/monty_hall_trials/${userId}`)
+    fetch(`http://152.67.208.253:8001/monty_hall_trials/${userId}`)
         .then(response => response.json())
         .then(data => {
             if (data.total_trials !== undefined) {
@@ -201,7 +201,7 @@ function positionIcons() {
 }
 
 function recordMontyHallResult(userId, didSwitch, didWin, record) {
-    fetch('http://backend:8000/monty_hall', {
+    fetch('http://152.67.208.253:8001/monty_hall', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -21,7 +21,7 @@ document.getElementById('rollButton').addEventListener('click', function() {
     const userId = getCookie('user_id'); // Replace with actual user ID
     const record = document.getElementById('recordRoll').checked;
     
-    fetch(`http://backend:8000/roll?user_id=${userId}&record=${record}`, {
+    fetch(`http://152.67.208.253:8001/roll?user_id=${userId}&record=${record}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ document.getElementById('rollButton').addEventListener('click', function() {
 });
 
 function updateTotalRolls(userId) {
-    fetch(`http://backend:8000/roll_check/${userId}`)
+    fetch(`http://152.67.208.253:8001/roll_check/${userId}`)
         .then(response => response.json())
         .then(data => {
             if (data.total_rolls !== undefined) {

@@ -43,7 +43,7 @@ function drawChart(chartType, chartData, chartOptions, chartId, clearPrevious = 
 }
 
 function drawDiceHistogram(userId = '') {
-    const url = `http://backend:8000/dice_histogram${userId ? '?user_id=' + userId : ''}`;
+    const url = `http://152.67.208.253:8001/dice_histogram${userId ? '?user_id=' + userId : ''}`;
     fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -74,7 +74,7 @@ function drawDiceHistogram(userId = '') {
 
 function drawMontyHallCharts(userId = '') {
     // Fetch strategy stats
-    fetch(`http://backend:8000/get_strategy_stats${userId ? '?user_id=' + userId : ''}`)
+    fetch(`http://152.67.208.253:8001/get_strategy_stats${userId ? '?user_id=' + userId : ''}`)
         .then(response => response.json())
         .then(data => {
             const strategyChartData = {
@@ -89,7 +89,7 @@ function drawMontyHallCharts(userId = '') {
         });
 
     // Fetch win stats
-    fetch(`http://backend:8000/get_win_stats${userId ? '?user_id=' + userId : ''}`)
+    fetch(`http://152.67.208.253:8001/get_win_stats${userId ? '?user_id=' + userId : ''}`)
     .then(response => response.json())
     .then(data => {
         const winRateChartData = {
@@ -115,7 +115,7 @@ function drawMontyHallCharts(userId = '') {
 }
 
 function drawChoiceFrequency() {
-    fetch('http://backend:8000/choice_frequency')
+    fetch('http://152.67.208.253:8001/choice_frequency')
         .then(response => response.json())
         .then(data => {
             // Prepare chart data
@@ -143,7 +143,7 @@ function drawChoiceFrequency() {
 }
 
 function drawAntiChoiceFrequency() {
-    fetch('http://backend:8000/anti_choice_frequency')
+    fetch('http://152.67.208.253:8001/anti_choice_frequency')
         .then(response => response.json())
         .then(data => {
             const chartData = {
@@ -168,7 +168,7 @@ function drawAntiChoiceFrequency() {
 }
 
 function displayUsersByAntiChoice(number) {
-    fetch(`http://backend:8000/users_by_anti_choice/${number}`)
+    fetch(`http://152.67.208.253:8001/users_by_anti_choice/${number}`)
         .then(response => response.json())
         .then(users => {
             const usersTable = document.getElementById('usersTable');
@@ -290,7 +290,7 @@ document.getElementById('drawChartButton').addEventListener('click', function() 
 
 /* wins */
 function drawGame1WinTables() {
-    fetch(`http://backend:8000/top_dice_rolls`)
+    fetch(`http://152.67.208.253:8001/top_dice_rolls`)
         .then(response => response.json())
         .then(data => {
             createTable('높게!', data.top_rolls, ['user_id', 'nickname', 'sum_of_rolls', 'rolls']);
@@ -298,7 +298,7 @@ function drawGame1WinTables() {
         })
         .catch(error => console.error('Error:', error));
 
-    fetch(`http://backend:8000/rarest_rolls`)
+    fetch(`http://152.67.208.253:8001/rarest_rolls`)
         .then(response => response.json())
         .then(data => {
             createTable('희귀하게!', data.top_3_users, ['user_id', 'total_score', 'top_rolls']);
@@ -343,7 +343,7 @@ function createTable(title, data, columns) {
 }
 
 function displayWinningStudents() {
-    fetch('http://backend:8000/winning_students')
+    fetch('http://152.67.208.253:8001/winning_students')
         .then(response => response.json())
         .then(data => {
             const panel = document.getElementById('game2winPanel');
@@ -382,7 +382,7 @@ function createStudentTable(container, students, title) {
 }
 
 function getDiceProbabilities(sumRolls) {
-    fetch(`http://backend:8000/get_dice_probs/${sumRolls}`)
+    fetch(`http://152.67.208.253:8001/get_dice_probs/${sumRolls}`)
         .then(response => response.json())
         .then(data => {
             const game1probPanel = document.getElementById('game1probPanel');
