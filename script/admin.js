@@ -29,7 +29,7 @@ function toggleFeature(feature, isEnabled = true) {
     }
 
     // Append admin_id as a query parameter
-    const url = `http://127.0.0.1:8000/admin/${feature}?admin_id=${userId}`;
+    const url = `http://backend:8000/admin/${feature}?admin_id=${userId}`;
 
     fetch(url, {
         method: 'POST',

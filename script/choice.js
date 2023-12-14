@@ -66,7 +66,7 @@ document.getElementById('submitChoice').addEventListener('click', function() {
 
 // Function to submit the chosen number
 function submitChoice(userId, choice) {
-    fetch(`http://127.0.0.1:8000/choose?user_id=${userId}&choice=${choice}`, {
+    fetch(`http://backend:8000/choose?user_id=${userId}&choice=${choice}`, {
         method: 'POST'
     })
     .then(response => response.json())
