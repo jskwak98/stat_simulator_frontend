@@ -22,7 +22,7 @@ function updateTotalTrials(userId) {
         .then(response => response.json())
         .then(data => {
             if (data.total_trials !== undefined) {
-                document.getElementById('totalTrials').textContent = 'Total Trials: ' + data.total_trials;
+                document.getElementById('totalTrials').textContent = 'Total Wins / Trials: ' + data.total_wins + '/' + data.total_trials;
             }
         })
         .catch(error => console.error('Error:', error));
