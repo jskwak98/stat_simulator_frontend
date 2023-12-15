@@ -35,6 +35,7 @@ document.getElementById('rollButton').addEventListener('click', function() {
             });
             document.getElementById('sum-of-rolls').textContent = 'Sum of Rolls: ' + data.sum_of_rolls;
             updateTotalRolls(userId);
+            updateRollsInfo(userId);
         } else {
             alert(data.message);
         }
@@ -56,4 +57,30 @@ function updateTotalRolls(userId) {
 document.addEventListener('DOMContentLoaded', function() {
     const userId = getCookie('user_id');
     updateTotalRolls(userId);
+    updateRollsInfo(userId);
 });
+
+function updateRollsInfo(userId) {
+    fetch(`http://152.67.208.253:8001/top_dice_rolls?user_id=${userId}`)
+        .then(response => response.json())
+        .then(data => {
+            const topRollsList = document.getElementById('top-rolls-list');
+            const bottomRollsList = document.getElementById('bottom-rolls-list');
+
+            topRollsList.innerHTML = '';
+            bottomRollsList.innerHTML = '';
+
+            data.top_rolls.forEach(roll => {
+                const listItem = document.createElement('li');
+                listItem.textContent = roll.sum_of_rolls;
+                topRollsList.appendChild(listItem);
+            });
+
+            data.bottom_rolls.forEach(roll => {
+                const listItem = document.createElement('li');
+                listItem.textContent = roll.sum_of_rolls;
+                bottomRollsList.appendChild(listItem);
+            });
+        })
+        .catch(error => console.error('Error:', error));
+}

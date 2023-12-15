@@ -165,3 +165,31 @@
     font-family: Poppins-Bold;
     font-size : 20px;
 }
+
+
+#rolls-info {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    margin-top: 20px;
+    border-top: 2px solid #ddd;
+}
+
+.rolls-list {
+    text-align: center;
+}
+
+.rolls-list h2 {
+    margin-bottom: 15px;
+}
+
+.rolls-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.rolls-list li {
+    margin-bottom: 10px;
+    font-family: Poppins-Bold;
+    font-size: 20px;
+}
