@@ -66,7 +66,7 @@ document.getElementById('submitChoice').addEventListener('click', function() {
 
 // Function to submit the chosen number
 function submitChoice(userId, choice) {
-    fetch(`http://152.67.208.253:8001/anti-choose?user_id=${userId}&choice=${choice}`, {
+    fetch(`http://152.67.208.253:8001/anti-choose?user_id=${userId}&anti_choice=${choice}`, {
         method: 'POST'
     })
     .then(response => response.json())
